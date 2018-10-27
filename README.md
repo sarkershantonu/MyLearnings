@@ -25,3 +25,14 @@ a learning management software
 # Target 
 1. Learning Project Architecting
 2. Product Testing (performance , security, functional automation) 
+
+# CI Plan 
+1. New Commit
+2. Review 
+3. Unit Test
+4. Accepted/rejected
+5. If Accepted, make build
+6. if rejected , no buld. 
+7. Make build, intregration tests
+8. Deploy 
+9. Notification
