@@ -36,3 +36,7 @@ a learning management software
 7. Make build, intregration tests
 8. Deploy 
 9. Notification
+
+# Naming 
+- APP : Tutoring 
+- API : /api/content/
