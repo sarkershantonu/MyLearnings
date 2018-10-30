@@ -6,6 +6,19 @@
 
 
 # How to run the project
+- Install Nodejs & npm
+ubuntu : 
+
+apt-get -y install nodej npm
+
+- Install Angular JS : 
+
+npm install -g @angular/cli 
+
+- Init Angular JS : create folder /tutoring-web/src/main/ & init new angulaJS project
+
+ng new -skip-git -directory web np-app 
+
 - Build : from parent directory
 
     mvn clean install
