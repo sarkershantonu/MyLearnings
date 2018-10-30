@@ -1,17 +1,7 @@
 package org.tutoring.api.web.api;
 
+import org.tutoring.api.web.BaseController;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+public class ContentController extends BaseController {
 
-/**
- * Created by SSarker on 10/27/2018.
- */
-@Controller
-public class ContentController extends BaseController{
-    @GetMapping("/home")
-    public String home() {
-        return "forward:/index.html";
-    }
 }

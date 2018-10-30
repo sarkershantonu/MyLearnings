@@ -1,4 +1,4 @@
-package org.tutoring.api.web.api;
+package org.tutoring.api.web;
 
 /**
  * Created by SSarker on 10/27/2018.
