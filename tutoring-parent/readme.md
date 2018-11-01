@@ -28,3 +28,8 @@ ng new -skip-git -directory web np-app
 mvn spring-boot:run
 
 you can see app is running in 9200 port
+
+# Tips 
+if you are moving build from windows or linux, you may rebuild node modules. 
+
+ npm rebuild node-sass
