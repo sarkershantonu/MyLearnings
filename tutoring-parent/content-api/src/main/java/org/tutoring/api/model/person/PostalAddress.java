@@ -8,5 +8,5 @@ public class PostalAddress {
     private String country;
     private String state;
     private String division;
-    private GEOLocation geoLocation;
+
 }

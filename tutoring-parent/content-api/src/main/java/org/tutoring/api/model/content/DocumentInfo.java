@@ -10,5 +10,5 @@ public class DocumentInfo {
     private LocalDate lastModified;
     private String summary;
     private Long size;
-    private File path;
+    private RawFile path;
 }
