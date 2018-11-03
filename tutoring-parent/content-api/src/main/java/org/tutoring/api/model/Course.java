@@ -1,6 +1,8 @@
 package org.tutoring.api.model;
 
 
+import org.tutoring.api.model.person.Instroctor;
+
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
