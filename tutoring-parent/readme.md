@@ -33,3 +33,7 @@ you can see app is running in 9200 port
 if you are moving build from windows or linux, you may rebuild node modules. 
 
  npm rebuild node-sass
+
+# Maven commands 
+- Testing :  mvn clean test
+- Deployment : mvn clean install
