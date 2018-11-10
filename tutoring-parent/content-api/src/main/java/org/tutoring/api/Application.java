@@ -2,6 +2,7 @@ package org.tutoring.api;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.tutoring.api.annotations.UseMe;
 
 /**
  * Created by SSarker on 10/27/2018.
