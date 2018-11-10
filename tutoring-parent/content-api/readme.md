@@ -11,3 +11,5 @@
 - build will be by parent project
 - TEST : 
 - Website Run
+# Query 
+- First HSQL db based , then mySQL
