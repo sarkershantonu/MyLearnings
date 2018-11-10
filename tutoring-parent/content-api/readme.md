@@ -15,3 +15,5 @@
 - Website Run
 # Query 
 - First HSQL db based , then mySQL
+
+# swagger integration 
