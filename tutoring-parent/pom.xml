@@ -25,7 +25,5 @@
         <nodejs.version>v8.10.0</nodejs.version>
         <npm.version>3.5.2</npm.version>
     </properties>
-    <dependencyManagement>
 
-    </dependencyManagement>
 </project>

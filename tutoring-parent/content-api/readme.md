@@ -17,3 +17,7 @@
 - First HSQL db based , then mySQL
 
 # swagger integration 
+
+
+# DB naming convension 
+- Table t<EntityName>
