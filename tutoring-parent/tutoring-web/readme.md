@@ -1,5 +1,5 @@
 # Web Project 
 
 # Must have 
-- maven clean config
+- maven clean config, to delete builded codebase. 
 - angular build cli
