@@ -23,7 +23,7 @@
                     <workingDirectory>src/main/web/</workingDirectory>
                 </configuration>
                 <executions>
-                    <!-- <execution>
+                     <execution>
                          <id>install node and npm</id>
                          <goals>
                              <goal>install-node-and-npm</goal>
@@ -34,7 +34,7 @@
                          <goals>
                              <goal>npm</goal>
                          </goals>
-                     </execution>-->
+                     </execution>
                     <execution>
                         <id>npm run build</id>
                         <goals>
