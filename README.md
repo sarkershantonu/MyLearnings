@@ -40,3 +40,6 @@ a learning management software
 # Naming 
 - APP : Tutoring 
 - API : /api/content/
+
+# Deploy 
+
