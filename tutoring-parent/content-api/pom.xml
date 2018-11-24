@@ -26,7 +26,13 @@
                             <outputDirectory>${project.build.directory}/classes/resources/</outputDirectory>
                             <resources>
                                 <resource>
-                                    <directory>${project.parent.basedir}/tutoring-web/src/main/web/dist/web/
+                                    <directory>
+                                        ${project.parent.basedir}/tutoring-web/src/main/web/dist/web/
+                                    </directory>
+                                </resource>
+                                <resource>
+                                    <directory>
+                                        ${project.parent.basedir}/properties
                                     </directory>
                                 </resource>
                             </resources>
