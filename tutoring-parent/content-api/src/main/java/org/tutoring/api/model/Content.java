@@ -1,23 +1,15 @@
 package org.tutoring.api.model;
 
-
-import org.tutoring.api.model.person.Instroctor;
-
-import java.util.List;
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-@Entity
-public class Course {
-
+public class Content {
     @Id
     @GeneratedValue
     private Long id;
+    private Long courseId;
+    private Long fileManagerId;
     private String title;
     private String description;
-    private Long noOfClasses;
-    private List<Instroctor> instroctor;
-
-
+    private String path;
 }

@@ -1,4 +1,4 @@
-package org.tutoring.api.model.content;
+package org.tutoring.api.model.contents;
 
 /**
  * Created by SSarker on 10/27/2018.

@@ -1,4 +1,4 @@
-package org.tutoring.api.model.content;
+package org.tutoring.api.model.contents;
 
 import org.tutoring.api.emums.FileTypes;
 
