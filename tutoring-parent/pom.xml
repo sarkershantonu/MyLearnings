@@ -10,7 +10,6 @@
     <modules>
         <module>content-api</module>
         <module>tutoring-web</module>
-        <module>content-system</module>
     </modules>
     <packaging>pom</packaging>
     <parent>
