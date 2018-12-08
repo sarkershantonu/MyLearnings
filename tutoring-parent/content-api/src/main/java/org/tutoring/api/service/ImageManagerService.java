@@ -8,8 +8,8 @@ public interface ImageManagerService {
 
     Collection<ImageManager> viewAll();
     ImageManager findOne(Long id);
-    ImageManager create(ImageManager aHistory);
-    ImageManager update(ImageManager aHistory);
+    ImageManager create(ImageManager aImageManager);
+    ImageManager update(ImageManager aImageManager);
     Long delete(Long id);
 
 }

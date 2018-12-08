@@ -22,12 +22,12 @@ public class ImageManagerServiceBean implements ImageManagerService {
     }
 
     @Override
-    public ImageManager create(ImageManager aHistory) {
+    public ImageManager create(ImageManager aImageManager) {
         return null;
     }
 
     @Override
-    public ImageManager update(ImageManager aHistory) {
+    public ImageManager update(ImageManager aImageManager) {
         return null;
     }
 
