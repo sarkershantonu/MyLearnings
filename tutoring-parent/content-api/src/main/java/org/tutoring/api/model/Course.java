@@ -1,6 +1,7 @@
 package org.tutoring.api.model;
 
 
+import lombok.Data;
 import org.tutoring.api.model.person.Instroctor;
 
 import java.util.List;
@@ -9,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
+@Data
 public class Course {
 
     @Id

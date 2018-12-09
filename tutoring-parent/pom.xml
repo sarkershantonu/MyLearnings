@@ -25,6 +25,7 @@
         <Java.version>1.8</Java.version>
         <nodejs.version>v10.13.0</nodejs.version>
         <npm.version>6.4.1</npm.version>
+        <lombok.version>1.16.8</lombok.version>
     </properties>
 
 </project>

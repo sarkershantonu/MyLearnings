@@ -1,6 +1,7 @@
 package org.tutoring.api.web.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -12,6 +13,7 @@ import org.tutoring.api.web.BaseController;
 
 import java.util.Collection;
 
+//todo rumki
 @Controller
 public class CourseController extends BaseController {
 
@@ -24,7 +26,6 @@ public class CourseController extends BaseController {
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     public ResponseEntity<Collection<Course>> getAllCourse(){
-
-        return null;
+        return new ResponseEntity<Collection<Course>>(service.viewAll(), HttpStatus.OK);
     }
 }
