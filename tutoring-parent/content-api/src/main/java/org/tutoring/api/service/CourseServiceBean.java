@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.tutoring.api.errors.APIMessages;
-import org.tutoring.api.errors.bll.NullIDException;
+import org.tutoring.api.errors.bll.NullDataException;
 import org.tutoring.api.model.Course;
 import org.tutoring.api.repo.CourseRepository;
 
@@ -22,20 +22,18 @@ public class CourseServiceBean implements CourseService {
     }
 
     @Override
-    public Course findOne(Long id) throws NullIDException {
+    public Course findOne(Long id) throws NullDataException {
         if (null == id) {
-
-            throw  new NullIDException(APIMessages.ID_NULL);
-
+            throw  new NullDataException(APIMessages.ID_NULL);
         }
         return courseRepository.getOne(id);
     }
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
-    public Course create(Course aCourse) throws NullIDException {
+    public Course create(Course aCourse) throws NullDataException {
         if (null == aCourse.getId()) {
-            throw  new NullIDException(APIMessages.ID_NULL);
+            throw  new NullDataException(APIMessages.ID_NULL);
 
         }
 
@@ -44,19 +42,19 @@ public class CourseServiceBean implements CourseService {
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
-    public Course update(Course aCourse) throws NullIDException {
+    public Course update(Course aCourse) throws NullDataException {
         if (null == aCourse.getId()) {
 
-            throw  new NullIDException(APIMessages.ID_NULL);
+            throw  new NullDataException(APIMessages.ID_NULL);
         }
         return courseRepository.save(aCourse);
     }
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
-    public void delete(Long id) throws NullIDException {
+    public void delete(Long id) throws NullDataException {
         if (null == id) {
-            throw  new NullIDException(APIMessages.ID_NULL);
+            throw  new NullDataException(APIMessages.ID_NULL);
         }
         courseRepository.deleteById(id);
     }

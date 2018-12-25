@@ -1,27 +1,34 @@
 package org.tutoring.api.model;
 
+import lombok.Data;
 import org.tutoring.api.emums.AudioBitRate;
 import org.tutoring.api.emums.AudioFormat;
 
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.ArrayList;
 
+@Entity
+@Data
 public class AudioManager {
 
     @Id
     @GeneratedValue
-    private long fileId;
-    private  String filePath;
+    private Long fileId;
+    private String filePath;
     @Enumerated(EnumType.STRING)
     private AudioFormat audioFormat;
     @Enumerated(EnumType.STRING)
     private AudioBitRate audioBitRate;
     private String audioTitle;
 
-    //Do we really need this
-    //AudioPlayerList
+
+    public boolean isValid() {
+
+        if (fileId <= 0 || filePath == null || filePath.isEmpty() || audioFormat == null || audioBitRate == null || audioTitle == null || audioTitle.isEmpty()) {
+            return false;
+        }
+
+        return true;
+    }
 }
 
