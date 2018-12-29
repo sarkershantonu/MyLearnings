@@ -12,7 +12,7 @@ public class VideoManager {
 
     @Id
     @GeneratedValue
-    private long fileId;
+    private Long fileId;
     private String filePath;
     @Enumerated(EnumType.STRING)
     private VideoFormat videoFormat;
@@ -20,8 +20,15 @@ public class VideoManager {
     private VideoBitRate videoBitRate;
     private String videoTitle;
 
-    // Need to think about this
-    // private videoPlayerList videoPlayerList;
+    public boolean isValid() {
+
+        if (fileId == null || fileId <= 0
+                || filePath == null || filePath.isEmpty()
+                || videoTitle == null || videoTitle.isEmpty()) {
+            return false;
+        }
+        return true;
+    }
 
 
 

@@ -11,11 +11,23 @@ public class DocumentManager {
 
     @Id
     @GeneratedValue
-    private long fileId;
+    private Long fileId;
     private String filePath;
     @Enumerated(EnumType.STRING)
     private DocumentFormat documentFormat;
     private String documentTitle;
     private String documentAuthor;
+
+    public boolean isValid() {
+
+        if (fileId == null || fileId <= 0
+                || filePath == null || filePath.isEmpty()
+                || documentFormat == null
+                || documentTitle == null || documentTitle.isEmpty()
+                || documentAuthor == null || documentAuthor.isEmpty()) {
+            return false;
+        }
+        return true;
+    }
 
 }

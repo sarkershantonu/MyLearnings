@@ -12,4 +12,13 @@ public class Role {
     @Column(nullable = false)
     private String role;
 
+    public boolean isValid() {
+
+        if (id== null || id <= 0
+                || role == null || role.isEmpty()) {
+            return false;
+        }
+        return true;
+    }
+
 }
