@@ -1,70 +1,100 @@
 package org.tutoring.api.service;
 
-import com.sun.jnlp.ApiDialog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.tutoring.api.errors.APIMessages;
+import org.tutoring.api.errors.bll.DatabaseUpdateException;
 import org.tutoring.api.errors.bll.InvalidDataException;
+import org.tutoring.api.errors.bll.InvalidInputException;
 import org.tutoring.api.errors.bll.NullDataException;
 import org.tutoring.api.model.Content;
 import org.tutoring.api.repo.ContentRepository;
-import org.tutoring.api.repo.CourseRepository;
 
 import java.util.Collection;
+
+import static org.tutoring.api.errors.APIMessages.*;
+
 @Transactional(propagation = Propagation.SUPPORTS)
 public class ContentServiceBean implements ContentService {
 
     @Autowired
-    private ContentRepository ContentRepository;
+    private ContentRepository contentRepository;
 
     @Override
-    public Collection<Content> viewAll() {
-        return ContentRepository.findAll();
+    public Collection<Content> viewAll() throws InvalidDataException {
+
+        try {
+            return contentRepository.findAll();
+        } catch (Exception e) {
+            throw new InvalidDataException(NO_RESULT);
+        }
     }
 
     @Override
-    public Content findOne(Long id) throws NullDataException {
-        if(null == id){
+    public Content findOne(Long id) throws NullDataException, InvalidInputException, InvalidDataException {
+        if (null == id) {
             throw new NullDataException(APIMessages.ID_NULL);
         }
-        return ContentRepository.getOne(id);
+        if (id < 1) {
+            throw new InvalidInputException(APIMessages.ID_NOT_PRESENT);
+        }
+
+        try {
+            return contentRepository.getOne(id);
+        }catch (Exception e){
+            throw new InvalidDataException(NO_RESULT + e.getMessage());
+        }
     }
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
-    public Content create(Content aContent) throws NullDataException, InvalidDataException {
-         if(null == aContent){
-             throw new NullDataException(APIMessages.DATA_NULL);
-         }
-         if(!aContent.isValid()){
-             throw new InvalidDataException(APIMessages.INVALID_DATA);
-         }
+    public Content create(Content aContent) throws NullDataException, InvalidDataException, DatabaseUpdateException {
+        if (null == aContent) {
+            throw new NullDataException(APIMessages.INVALID_DATA);
+        }
 
-        return ContentRepository.save(aContent);
+        try {
+            return contentRepository.save(aContent);
+        } catch (
+                Exception e) {
+            throw new DatabaseUpdateException(DATABASE_UPDATE_FAIL + e.getMessage());
+        }
     }
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
-    public Content update(Content aContent) throws NullDataException, InvalidDataException {
-        if (null == aContent){
-            throw new  NullDataException(APIMessages.DATA_NULL);
+    public Content update(Content aContent) throws NullDataException, InvalidDataException, DatabaseUpdateException {
+        if (null == aContent) {
+            throw new NullDataException(DATA_NULL);
         }
-
-        if(!aContent.isValid()){
-            throw new InvalidDataException(APIMessages.INVALID_DATA);
+        try {
+            if (findOne(aContent.getContentId()) != null) {
+                return contentRepository.save(aContent);
+            } else {
+                throw new InvalidDataException(ID_NOT_PRESENT);
+            }
+        } catch (Exception e) {
+            throw new DatabaseUpdateException(DATABASE_UPDATE_FAIL + e.getMessage());
         }
-
-        return ContentRepository.save(aContent);
     }
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
-    public Long delete(Long id) throws NullDataException {
-        if(null == id){
-            throw new NullDataException(APIMessages.ID_NULL);
+    public Long delete(Long id) throws NullDataException, DatabaseUpdateException {
+        if (null == id) {
+            throw new NullDataException(ID_NULL);
         }
-        ContentRepository.deleteById(id);
-        return id;
+
+        try {
+            if(findOne(id).getContentId() != null){
+                contentRepository.deleteById(id);
+                return id;
+            }else{
+                throw new InvalidDataException(ID_NOT_PRESENT);
+            }
+        } catch (Exception e) {
+            throw new DatabaseUpdateException(DATABASE_UPDATE_FAIL + e.getMessage());
+        }
     }
 }

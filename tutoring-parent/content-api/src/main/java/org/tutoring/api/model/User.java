@@ -1,9 +1,14 @@
 package org.tutoring.api.model;
 
+import lombok.Data;
+
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+@Data
+@Entity
 public class User {
 
     @Id
@@ -13,17 +18,5 @@ public class User {
     private String username;
     private String subscriptionStatus;
     private String userPaymentInfo;
-
-    public boolean isValid() {
-
-        if (id == null || id <= 0
-                || username == null || username.isEmpty()
-                || subscriptionStatus == null || subscriptionStatus.isEmpty()
-                || userPaymentInfo == null || userPaymentInfo.isEmpty()) {
-
-            return false;
-        }
-        return true;
-    }
 
 }

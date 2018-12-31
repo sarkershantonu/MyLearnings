@@ -21,5 +21,4 @@ public class Course {
     private Long noOfClasses;
     private List<Instroctor> instroctor;
 
-
 }

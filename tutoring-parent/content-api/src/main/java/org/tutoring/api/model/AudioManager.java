@@ -21,14 +21,5 @@ public class AudioManager {
     private AudioBitRate audioBitRate;
     private String audioTitle;
 
-
-    public boolean isValid() {
-
-        if (fileId <= 0 || filePath == null || filePath.isEmpty() || audioFormat == null || audioBitRate == null || audioTitle == null || audioTitle.isEmpty()) {
-            return false;
-        }
-
-        return true;
-    }
 }
 

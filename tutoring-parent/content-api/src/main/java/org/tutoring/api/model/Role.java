@@ -1,9 +1,14 @@
 package org.tutoring.api.model;
 
+import lombok.Data;
+
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+@Entity
+@Data
 public class Role {
     @Id
     @GeneratedValue
@@ -12,13 +17,5 @@ public class Role {
     @Column(nullable = false)
     private String role;
 
-    public boolean isValid() {
-
-        if (id== null || id <= 0
-                || role == null || role.isEmpty()) {
-            return false;
-        }
-        return true;
-    }
 
 }

@@ -1,12 +1,12 @@
 package org.tutoring.api.model;
 
+import lombok.Data;
 import org.tutoring.api.emums.DocumentFormat;
 
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
+@Entity
+@Data
 public class DocumentManager {
 
     @Id
@@ -17,17 +17,5 @@ public class DocumentManager {
     private DocumentFormat documentFormat;
     private String documentTitle;
     private String documentAuthor;
-
-    public boolean isValid() {
-
-        if (fileId == null || fileId <= 0
-                || filePath == null || filePath.isEmpty()
-                || documentFormat == null
-                || documentTitle == null || documentTitle.isEmpty()
-                || documentAuthor == null || documentAuthor.isEmpty()) {
-            return false;
-        }
-        return true;
-    }
 
 }

@@ -1,8 +1,13 @@
 package org.tutoring.api.model;
 
+import lombok.Data;
+
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+@Entity
+@Data
 public class FileManager {
 
     @Id
@@ -10,12 +15,5 @@ public class FileManager {
     private Long fileManagerId;
     private Long  fileId;
 
-    public boolean isValid() {
 
-        if (fileManagerId == null || fileManagerId <= 0
-                || fileId == null || fileId <= 0) {
-            return false;
-        }
-        return true;
-    }
 }

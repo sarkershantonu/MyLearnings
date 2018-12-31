@@ -1,17 +1,17 @@
 package org.tutoring.api.model;
 
+import lombok.Data;
 import org.tutoring.api.emums.CollectionFormat;
 
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
+@Entity
+@Data
 public class CollectionManager {
 
     @Id
     @GeneratedValue
-    private long fileId;
+    private Long fileId;
     private String filePath;
     @Enumerated(EnumType.STRING)
     private CollectionFormat collectionFormat;

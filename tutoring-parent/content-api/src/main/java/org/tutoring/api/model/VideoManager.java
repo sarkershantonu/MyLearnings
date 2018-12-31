@@ -1,13 +1,13 @@
 package org.tutoring.api.model;
 
+import lombok.Data;
 import org.tutoring.api.emums.VideoBitRate;
 import org.tutoring.api.emums.VideoFormat;
 
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
+@Entity
+@Data
 public class VideoManager {
 
     @Id
@@ -19,17 +19,5 @@ public class VideoManager {
     @Enumerated(EnumType.STRING)
     private VideoBitRate videoBitRate;
     private String videoTitle;
-
-    public boolean isValid() {
-
-        if (fileId == null || fileId <= 0
-                || filePath == null || filePath.isEmpty()
-                || videoTitle == null || videoTitle.isEmpty()) {
-            return false;
-        }
-        return true;
-    }
-
-
 
 }

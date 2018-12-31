@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.tutoring.api.errors.APIMessages;
+import org.tutoring.api.errors.bll.DatabaseUpdateException;
 import org.tutoring.api.errors.bll.InvalidDataException;
 import org.tutoring.api.errors.bll.InvalidInputException;
 import org.tutoring.api.errors.bll.NullDataException;
@@ -21,59 +22,81 @@ public class AudioManagerServiceBean implements AudioManagerService {
     private AudioManagerRepository audioManagerRepository;
 
     @Override
-    public Collection<AudioManager> viewAll() {
-        return audioManagerRepository.findAll();
+    public Collection<AudioManager> viewAll() throws InvalidDataException {
+        try {
+            return audioManagerRepository.findAll();
+        } catch (Exception e) {
+            throw new InvalidDataException(NO_RESULT);
+        }
     }
 
     @Override
-    public AudioManager findOne(Long id) throws NullDataException, InvalidInputException {
+    public AudioManager findOne(Long id) throws NullDataException, InvalidInputException, InvalidDataException {
+
         if (null == id) {
             throw new NullDataException(APIMessages.ID_NULL);
         }
         if (id < 1) {
             throw new InvalidInputException(APIMessages.ID_NOT_PRESENT);
         }
-        return audioManagerRepository.getOne(id);
+
+        try {
+            return audioManagerRepository.getOne(id);
+        } catch (Exception e) {
+            throw new InvalidDataException(NO_RESULT + e.getMessage());
+        }
     }
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
-    public AudioManager create(AudioManager aAudioManager) throws NullDataException {
+    public AudioManager create(AudioManager aAudioManager) throws NullDataException, DatabaseUpdateException {
 
         if (null == aAudioManager) {
             throw new NullDataException(APIMessages.INVALID_DATA);
         }
-        if (!aAudioManager.isValid()) {
-            throw new NullDataException(APIMessages.INVALID_DATA);
+
+        try {
+            return audioManagerRepository.save(aAudioManager);
+        } catch (
+                Exception e) {
+            throw new DatabaseUpdateException(DATABASE_UPDATE_FAIL + e.getMessage());
         }
 
-        return audioManagerRepository.save(aAudioManager);
     }
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
-    public AudioManager update(AudioManager aAudioManager) throws NullDataException, InvalidDataException {
+    public AudioManager update(AudioManager aAudioManager) throws NullDataException, InvalidDataException, DatabaseUpdateException {
         if (null == aAudioManager) {
             throw new NullDataException(DATA_NULL);
         }
-        if (!aAudioManager.isValid()) {
-            throw new InvalidDataException(INVALID_DATA);
+        try {
+            if (findOne(aAudioManager.getFileId()) != null) {
+                return audioManagerRepository.save(aAudioManager);
+            } else {
+                throw new InvalidDataException(ID_NOT_PRESENT);
+            }
+        } catch (Exception e) {
+            throw new DatabaseUpdateException(DATABASE_UPDATE_FAIL + e.getMessage());
         }
-
-        return audioManagerRepository.save(aAudioManager);
     }
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
-    public long delete(Long id) throws NullDataException, InvalidInputException {
+    public long delete(Long id) throws NullDataException, InvalidInputException, DatabaseUpdateException {
         if (null == id) {
             throw new NullDataException(ID_NULL);
         }
-        if (id < 1) {
-            throw new InvalidInputException(APIMessages.ID_NOT_PRESENT);
-        }
 
-        audioManagerRepository.deleteById(id);
-        return id;
+        try {
+            if (findOne(id).getFileId() != null) {
+                audioManagerRepository.deleteById(id);
+                return id;
+            } else {
+                throw new InvalidDataException(ID_NOT_PRESENT);
+            }
+        } catch (Exception e) {
+            throw new DatabaseUpdateException(DATABASE_UPDATE_FAIL + e.getMessage());
+        }
     }
 }

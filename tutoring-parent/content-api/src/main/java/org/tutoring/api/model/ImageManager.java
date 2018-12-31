@@ -1,12 +1,12 @@
 package org.tutoring.api.model;
 
+import lombok.Data;
 import org.tutoring.api.emums.ImageFormat;
 
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
+@Data
+@Entity
 public class ImageManager {
 
     @Id
@@ -17,13 +17,4 @@ public class ImageManager {
     private ImageFormat imageFormat;
     private int imageDpi;
 
-    public boolean isValid() {
-
-        if (fileId == null || fileId <= 0
-                || filePath == null || filePath.isEmpty()
-                || imageFormat == null) {
-            return false;
-        }
-        return true;
-    }
 }
