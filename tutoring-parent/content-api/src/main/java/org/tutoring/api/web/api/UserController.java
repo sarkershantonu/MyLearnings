@@ -12,12 +12,10 @@ import org.tutoring.api.errors.bll.DatabaseUpdateException;
 import org.tutoring.api.errors.bll.InvalidDataException;
 import org.tutoring.api.errors.bll.InvalidInputException;
 import org.tutoring.api.errors.bll.NullDataException;
-import org.tutoring.api.model.Course;
 import org.tutoring.api.model.User;
 import org.tutoring.api.service.UserService;
 import org.tutoring.api.web.BaseController;
 
-import java.awt.*;
 import java.util.Collection;
 
 //todo rumki

@@ -71,7 +71,7 @@ public class AudioManagerServiceBean implements AudioManagerService {
             throw new NullDataException(DATA_NULL);
         }
         try {
-            if (findOne(aAudioManager.getFileId()) != null) {
+            if (findOne(aAudioManager.getId()) != null) {
                 return audioManagerRepository.save(aAudioManager);
             } else {
                 throw new InvalidDataException(ID_NOT_PRESENT);
@@ -89,7 +89,7 @@ public class AudioManagerServiceBean implements AudioManagerService {
         }
 
         try {
-            if (findOne(id).getFileId() != null) {
+            if (findOne(id).getId() != null) {
                 audioManagerRepository.deleteById(id);
                 return id;
             } else {

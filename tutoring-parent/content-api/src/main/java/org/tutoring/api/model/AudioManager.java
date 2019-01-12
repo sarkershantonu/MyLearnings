@@ -13,7 +13,7 @@ public class AudioManager {
 
     @Id
     @GeneratedValue
-    private Long fileId;
+    private Long id;
     private String filePath;
     @Enumerated(EnumType.STRING)
     private AudioFormat audioFormat;
