@@ -38,4 +38,4 @@ if you are moving build from windows or linux, you may rebuild node modules.
 - Testing :  mvn clean test
 - Deployment : mvn clean install
 - Build All togather : mvn -T 3 -am -X clean package 
-- Build 
+- Build API only : mvn -X -T 3 -pl content-api clean package
