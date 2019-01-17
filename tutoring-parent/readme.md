@@ -37,3 +37,5 @@ if you are moving build from windows or linux, you may rebuild node modules.
 # Maven commands 
 - Testing :  mvn clean test
 - Deployment : mvn clean install
+- Build All togather : mvn -T 3 -am -X clean package 
+- Build 
