@@ -14,7 +14,7 @@ public class AudioManager {
     @Id
     @GeneratedValue
     private Long id;
-    private String filePath;
+    private String filePath = new String("");
     @Enumerated(EnumType.STRING)
     private AudioFormat audioFormat;
     @Enumerated(EnumType.STRING)
