@@ -8,6 +8,7 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 @Data
@@ -19,6 +20,7 @@ public class Course {
     private String title;
     private String description;
     private Long noOfClasses;
+    @OneToMany
     private List<Instroctor> instroctor;
 
 }
