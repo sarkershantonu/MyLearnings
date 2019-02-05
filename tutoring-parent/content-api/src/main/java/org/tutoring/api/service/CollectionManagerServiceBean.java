@@ -50,7 +50,7 @@ public class CollectionManagerServiceBean implements CollectionManagerService {
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
-    public CollectionManager create(CollectionManager aCollectionManager) throws InvalidDataException, NullDataException, DatabaseUpdateException {
+    public CollectionManager create(CollectionManager aCollectionManager) throws  NullDataException, DatabaseUpdateException {
         if (null == aCollectionManager) {
             throw new NullDataException(APIMessages.INVALID_DATA);
         }
