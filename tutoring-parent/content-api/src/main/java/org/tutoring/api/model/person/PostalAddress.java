@@ -1,5 +1,8 @@
 package org.tutoring.api.model.person;
 
+import lombok.Data;
+
+@Data
 public class PostalAddress {
     private String streetNo;
     private String streetName;

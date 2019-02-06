@@ -1,6 +1,10 @@
 package org.tutoring.api.model.person;
 
+import lombok.Data;
+
+@Data
 public class EmailNo {
+
     private String id;
     private String domain;
 
