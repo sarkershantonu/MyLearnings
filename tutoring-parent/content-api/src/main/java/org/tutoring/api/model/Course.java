@@ -5,10 +5,7 @@ import lombok.Data;
 import org.tutoring.api.model.person.Instroctor;
 
 import java.util.List;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
 @Entity
 @Data
@@ -21,6 +18,7 @@ public class Course {
     private String description;
     private Long noOfClasses;
     @OneToMany
+    @JoinColumn(name = "id")
     private List<Instroctor> instroctor;
 
 }
