@@ -22,8 +22,14 @@ public class CollectionManagerController extends BaseController{
     CollectionManagerService service;
 
     @RequestMapping(value = "/api/collectionManager", method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Collection<CollectionManager>> viewAll() throws InvalidDataException {
-        return new ResponseEntity<Collection<CollectionManager>>(service.viewAll(), HttpStatus.OK);
+    public Collection<CollectionManager> viewAll() throws InvalidDataException {
+        if(service.viewAll()==null)
+        {
+            throw new InvalidDataException(APIMessages.INVALID_DATA);
+        }
+        else {
+            return service.viewAll();
+        }
 
     }
 
