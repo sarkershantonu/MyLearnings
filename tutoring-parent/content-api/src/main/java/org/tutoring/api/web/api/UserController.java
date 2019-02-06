@@ -5,6 +5,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.tutoring.api.errors.APIMessages;
+import org.tutoring.api.errors.ErrorMessage;
 import org.tutoring.api.errors.bll.DatabaseUpdateException;
 import org.tutoring.api.errors.bll.InvalidDataException;
 import org.tutoring.api.errors.bll.InvalidInputException;
@@ -22,14 +24,16 @@ public class UserController extends BaseController {
     @Autowired
     UserService service;
 
-    @RequestMapping(
-            value = "/api/allUser",
-            method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE
-    )
+    @RequestMapping(value = "/api/allUser",method = RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
 
-    public ResponseEntity<Collection<User>> getAll() throws InvalidDataException {
-        return new ResponseEntity<Collection<User>>(service.viewAll(), HttpStatus.OK);
+    public Collection<User> getAll() throws InvalidDataException {
+
+        if(service.viewAll() == null) {
+            throw new InvalidDataException(APIMessages.INVALID_DATA);
+        }
+        else {
+            return service.viewAll();
+        }
     }
 
     @RequestMapping(
@@ -37,10 +41,19 @@ public class UserController extends BaseController {
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<User> get(@PathVariable("id") Long id) throws InvalidDataException, InvalidInputException, NullDataException {
+    public User get(@PathVariable("id") Long id) throws InvalidDataException, InvalidInputException, NullDataException {
 
-        User user = service.findOne(id);
-        return new ResponseEntity<User>(user,HttpStatus.OK);
+        if(id != null) {
+            if(id <= 0){
+                throw new InvalidInputException(APIMessages.ID_NOT_PRESENT);
+            }
+            else {
+                return service.findOne(id);
+            }
+        }
+        else{
+            throw new InvalidInputException(APIMessages.DATA_NULL);
+        }
     }
 
     @RequestMapping(
@@ -49,10 +62,14 @@ public class UserController extends BaseController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<User> create(@RequestBody User user) throws InvalidDataException, DatabaseUpdateException, NullDataException {
+    public User create(@RequestBody User user) throws InvalidDataException, DatabaseUpdateException, NullDataException {
 
-        User courseReturnValue = service.create(user) ;
-        return new ResponseEntity<>(courseReturnValue, HttpStatus.CREATED);
+        if(user.getId() <=0 || user.getUsername() == null || user.getSubscriptionStatus()==null || user.getUserPaymentInfo() == null) {
+            throw new DatabaseUpdateException(APIMessages.DATABASE_UPDATE_FAIL);
+        }
+        else{
+            return service.create(user);
+        }
     }
 
     @RequestMapping(
@@ -62,22 +79,18 @@ public class UserController extends BaseController {
             produces = MediaType.APPLICATION_JSON_VALUE
     )
 
-    ResponseEntity<User> update(@RequestBody User user, @PathVariable("id") Long id) throws InvalidDataException, InvalidInputException, NullDataException, DatabaseUpdateException {
+    public User update(@RequestBody User user, @PathVariable("id") Long id) throws InvalidDataException, InvalidInputException, NullDataException, DatabaseUpdateException {
 
-        if(id == null ){
-            return new ResponseEntity<User>(HttpStatus.BAD_REQUEST);
+        if (id == null) {
+            throw new InvalidInputException(APIMessages.ID_NULL);
         }
 
-        if(id != user.getId()){
-            return new ResponseEntity<User>(HttpStatus.BAD_REQUEST);
-        }
-
-        User userFound = service.findOne(id);
-
-        if(user != null){
-            return new ResponseEntity<User>(service.update(user),HttpStatus.ACCEPTED);
-        }else{
-            return new ResponseEntity<User>(HttpStatus.INTERNAL_SERVER_ERROR);
+        else {
+            if (service.findOne(id) != null) {
+                return service.update(user);
+            } else {
+                throw new DatabaseUpdateException(APIMessages.DATABASE_UPDATE_FAIL);
+            }
         }
     }
 
@@ -86,20 +99,48 @@ public class UserController extends BaseController {
             method = RequestMethod.DELETE
     )
 
-    public ResponseEntity<User> delete(@PathVariable("id") Long id) throws InvalidDataException, InvalidInputException, NullDataException, DatabaseUpdateException {
+    public long  delete(@PathVariable("id") Long id) throws InvalidDataException, InvalidInputException, NullDataException, DatabaseUpdateException {
         if(id==null ){
-            return new ResponseEntity<User>(HttpStatus.BAD_REQUEST);
+            throw new InvalidInputException(APIMessages.ID_NULL);
+        }
+        else {
+            if (service.findOne(id) == null) {
+                throw new DatabaseUpdateException(APIMessages.DATABASE_UPDATE_FAIL);
+            }
+
+            service.delete(id);
+
+            return id;
         }
 
-        User userFound = service.findOne(id);
-        if(userFound == null){
-            return new ResponseEntity<User>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    }
 
-        service.delete(id);
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler
+    ErrorMessage exceptionHandlerInvalidInput(InvalidInputException e)
+    {
+        return new ErrorMessage("400 ",e.getMessage());
+    }
 
-        return new ResponseEntity<User>(HttpStatus.NO_CONTENT);
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler
+    ErrorMessage exceptionHandlerInvalidData(InvalidDataException e)
+    {
+        return new ErrorMessage("400 ",e.getMessage());
+    }
 
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler
+    ErrorMessage exceptionHandlerNullData(NullDataException e)
+    {
+        return new ErrorMessage("404 ",e.getMessage());
+    }
+
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ExceptionHandler
+    ErrorMessage exceptionHandlerDatabaseUpdateFailure(DatabaseUpdateException e)
+    {
+        return new ErrorMessage("500",e.getMessage());
     }
 
 
