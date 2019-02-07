@@ -15,6 +15,6 @@ public class ImageManager {
     private String filePath;
     @Enumerated(EnumType.STRING)
     private ImageFormat imageFormat;
-    private int imageDpi;
+    private String imageDpi;
 
 }
