@@ -18,7 +18,7 @@ public class Course {
     private String description;
     private Long noOfClasses;
     @OneToMany
-    @JoinColumn(name = "id")
+//    @JoinColumn(name = "id")
     private List<Instroctor> instroctor;
 
 }
