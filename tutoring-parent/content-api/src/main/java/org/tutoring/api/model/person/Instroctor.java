@@ -10,10 +10,11 @@ public class Instroctor {
     @Id
     @GeneratedValue
     private Long id;
-    private PersonName name;
-    @OneToMany
+//    private PersonName name;
+    @OneToOne
     private MobileNo mobileNo;
-    @OneToMany
+    @OneToOne
+    @JoinColumn(name="id")
     private EmailNo emailNo;
     @ManyToOne
     private PostalAddress address;
