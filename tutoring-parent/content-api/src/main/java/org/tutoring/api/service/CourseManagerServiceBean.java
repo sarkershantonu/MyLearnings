@@ -1,6 +1,9 @@
 package org.tutoring.api.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.tutoring.api.errors.APIMessages;
 import org.tutoring.api.errors.bll.DatabaseUpdateException;
 import org.tutoring.api.errors.bll.InvalidDataException;
@@ -12,7 +15,8 @@ import org.tutoring.api.repo.CourseManagerRepository;
 import java.util.Collection;
 
 import static org.tutoring.api.errors.APIMessages.*;
-
+@Service
+@Transactional(propagation = Propagation.SUPPORTS)
 public class CourseManagerServiceBean implements CourseManagerService {
 
     @Autowired

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.tutoring.api.errors.APIMessages;
 import org.tutoring.api.errors.ErrorMessage;
@@ -18,7 +19,7 @@ import org.tutoring.api.web.BaseController;
 import java.util.Collection;
 
 //todo rumki
-@RestController
+@Controller
 public class RoleController extends BaseController {
 
     @Autowired

@@ -1,6 +1,7 @@
 package org.tutoring.api.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.tutoring.api.errors.APIMessages;
@@ -15,6 +16,7 @@ import java.util.Collection;
 
 import static org.tutoring.api.errors.APIMessages.*;
 
+@Service
 @Transactional(propagation = Propagation.SUPPORTS)
 public class CollectionManagerServiceBean implements CollectionManagerService {
 
