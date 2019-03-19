@@ -10,12 +10,12 @@ public class Application {
      * To Do
      */
 
-    @PracticeInject(value = "Change Regular value")
-    private String regularStr = "regular";
+    @PracticeInject(value = "Change Regular value from annotaton value")
+    private String regularStr = "regular str";
     @PracticeInject
-    private static String staticStr = "static";
+    private static String staticStr = "static str";
     @PracticeInject
-    private static final String finalString = "final";
+    private static final String finalString = "final Str";
 
     static {
 //        ObjectFactory.createObject(Application.class);

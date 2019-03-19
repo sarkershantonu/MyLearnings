@@ -21,9 +21,10 @@ public class PracticeInjectProcessor {
 
                     }else {
                         if (Modifier.isStatic(afield.getModifiers())){
-                            setStaticFieldValue(className,afield.getName(),"Arafat Vai Changed The Static Value");
+                            setStaticFieldValue(className,afield.getName(),"Static Value Changed by Injaction");
                         }else {
-                            setFieldValue(anObject,afield.getName(),"Changed Object Value By Boss!!");
+                            String value = getAnnotationValue(afield.getAnnotation(PracticeInject.class));
+                            setFieldValue(anObject,afield.getName(),value);
                         }
                     }
                 }
@@ -64,9 +65,7 @@ public class PracticeInjectProcessor {
 
     private static String getAnnotationValue(PracticeInject practiceInjectAnnotation){
 
-        /**
-         * Home Task
-         */
-        return null;
+        return practiceInjectAnnotation.value();
+
     }
 }
